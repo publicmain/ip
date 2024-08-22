@@ -7,9 +7,9 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
-    public void addTask(String description) {
+    public void addTask(Task task) {
         if (taskCount < 100) {
-            tasks[taskCount] = new Task(description);
+            tasks[taskCount] = task;
             taskCount++;
         }
     }
@@ -32,5 +32,13 @@ public class TaskManager {
         if (index < taskCount) {
             tasks[index].unmarkAsDone();
         }
+    }
+
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public Task getLastTask() {
+        return tasks[taskCount - 1];
     }
 }

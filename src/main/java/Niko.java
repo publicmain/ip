@@ -22,18 +22,30 @@ public class Niko {
             if (input.equals("list")) {
                 ui.showTaskList(taskManager.getTasks());
             } else if (input.startsWith("mark")) {
-                // 解析命令并标记任务为完成
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskManager.markTaskAsDone(taskIndex);
                 ui.showMarkTaskMessage(taskManager.getTask(taskIndex));
             } else if (input.startsWith("unmark")) {
-                // 解析命令并标记任务为未完成
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskManager.unmarkTaskAsDone(taskIndex);
                 ui.showUnmarkTaskMessage(taskManager.getTask(taskIndex));
-            } else {
-                taskManager.addTask(input);
-                ui.showAddTaskMessage(input);
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                taskManager.addTask(new Todo(description));
+                ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split("/by ");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                taskManager.addTask(new Deadline(description, by));
+                ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(6).split("/from |/to ");
+                String description = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                taskManager.addTask(new Event(description, from, to));
+                ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
             }
         }
 
