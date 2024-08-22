@@ -1,14 +1,29 @@
 public class Niko {
+    private String name;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        System.out.println("________________________________________");
-        System.out.println("Hello! I'm Niko");
-        System.out.println("What can I do for you?");
-        System.out.println("________________________________________");
+    public Niko(String name) {
+        this.name = name;
+        this.ui = new Ui();
+    }
 
-        // Add any additional logic here if needed
+    public void start() {
+        // 打印问候语
+        ui.showWelcomeMessage(this.name);
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________________________________");
+        // 循环回显用户输入
+        while (true) {
+            String input = ui.getUserInput();
+
+            if (input.equals("bye")) {
+                break;
+            }
+
+            // 回显用户的输入
+            ui.showEcho(input);
+        }
+
+        // 打印告别语
+        ui.showGoodbyeMessage();
     }
 }
