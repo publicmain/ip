@@ -18,9 +18,17 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showEcho(String message) {
+    public void showAddTaskMessage(String task) {
         System.out.println("________________________________________");
-        System.out.println(message);
+        System.out.println("added: " + task);
+        System.out.println("________________________________________");
+    }
+
+    public void showTaskList(String[] tasks) {
+        System.out.println("________________________________________");
+        for (int i = 0; i < tasks.length && tasks[i] != null; i++) {
+            System.out.println((i + 1) + ". " + tasks[i]);
+        }
         System.out.println("________________________________________");
     }
 
