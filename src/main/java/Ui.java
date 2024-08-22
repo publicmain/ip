@@ -49,6 +49,12 @@ public class Ui {
         System.out.println("________________________________________");
     }
 
+    public void showErrorMessage(String message) {
+        System.out.println("________________________________________");
+        System.out.println("OOPS!!! " + message);
+        System.out.println("________________________________________");
+    }
+
     public void showGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("________________________________________");
