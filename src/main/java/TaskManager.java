@@ -1,44 +1,49 @@
+import java.util.ArrayList;
+
 public class TaskManager {
-    private Task[] tasks;
-    private int taskCount;
+    private ArrayList<Task> tasks;
 
     public TaskManager() {
-        this.tasks = new Task[100];  // 限制最多 100 个任务
-        this.taskCount = 0;
+        this.tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
-        if (taskCount < 100) {
-            tasks[taskCount] = task;
-            taskCount++;
-        }
+        tasks.add(task);
     }
 
-    public Task[] getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     public Task getTask(int index) {
-        return tasks[index];
-    }
-
-    public void markTaskAsDone(int index) {
-        if (index < taskCount) {
-            tasks[index].markAsDone();
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
-    }
-
-    public void unmarkTaskAsDone(int index) {
-        if (index < taskCount) {
-            tasks[index].unmarkAsDone();
-        }
-    }
-
-    public int getTaskCount() {
-        return taskCount;
     }
 
     public Task getLastTask() {
-        return tasks[taskCount - 1];
+        return tasks.get(tasks.size() - 1);
+    }
+
+    public void markTaskAsDone(int index) {
+        Task task = getTask(index);
+        task.markAsDone();
+    }
+
+    public void unmarkTaskAsDone(int index) {
+        Task task = getTask(index);
+        task.unmarkAsDone();
+    }
+
+    public Task deleteTask(int index) {
+        Task task = getTask(index);
+        tasks.remove(index);
+        return task;
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
     }
 }

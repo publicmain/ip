@@ -73,6 +73,11 @@ public class Niko {
             taskManager.unmarkTaskAsDone(taskIndex);
             ui.showUnmarkTaskMessage(taskManager.getTask(taskIndex));
 
+        } else if (input.startsWith("delete")) {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task removedTask = taskManager.deleteTask(taskIndex);
+            ui.showDeleteTaskMessage(removedTask, taskManager.getTaskCount());
+
         } else {
             throw new DukeException("I'm sorry, I don't know what that means.");
         }
