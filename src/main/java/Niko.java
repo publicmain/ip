@@ -60,7 +60,7 @@ public class Niko {
             taskManager.addTask(new Event(description, from, to));
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
 
-        } else if (input.equals("list")) {
+        } else if (input.startsWith("list")) {
             ui.showTaskList(taskManager.getTasks());
 
         } else if (input.startsWith("mark")) {

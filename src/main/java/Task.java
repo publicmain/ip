@@ -1,26 +1,28 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected TaskStatus status;
+    protected TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
-        this.isDone = false;
+        this.status = TaskStatus.NOT_DONE;  // 默认任务未完成
+        this.type = type;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // 标记完成的任务为 X，未完成为空格
+        return (status == TaskStatus.DONE ? "X" : " ");  // 根据状态返回图标
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        this.status = TaskStatus.DONE;
     }
 
     public void unmarkAsDone() {
-        this.isDone = false;
+        this.status = TaskStatus.NOT_DONE;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + type.name().charAt(0) + "][" + getStatusIcon() + "] " + description;
     }
 }

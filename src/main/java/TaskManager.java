@@ -24,7 +24,7 @@ public class TaskManager {
     }
 
     public Task getLastTask() {
-        return tasks.get(tasks.size() - 1);
+        return tasks.getLast();
     }
 
     public void markTaskAsDone(int index) {

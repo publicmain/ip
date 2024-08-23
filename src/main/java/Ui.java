@@ -29,10 +29,15 @@ public class Ui {
 
     public void showTaskList(ArrayList<Task> tasks) {
         System.out.println("________________________________________");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+        if(!tasks.isEmpty()){
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }else{
+            System.out.println("You task is empty");
         }
+
         System.out.println("________________________________________");
     }
 
