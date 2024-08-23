@@ -84,7 +84,7 @@ public class Niko {
             ui.showDeleteTaskMessage(removedTask, taskManager.getTaskCount());
 
         } else {
-            throw new NikoException("I'm sorry, I don't know what that means.");
+            throw new NikoException("I'm sorry lah, I don't know what that means.");
         }
     }
 }
