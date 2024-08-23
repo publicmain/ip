@@ -1,7 +1,7 @@
 public class Niko {
-    private String name;
-    private Ui ui;
-    private TaskManager taskManager;
+    private final String name;
+    private final Ui ui;
+    private final TaskManager taskManager;
 
     public Niko(String name) {
         this.name = name;
@@ -22,7 +22,7 @@ public class Niko {
 
                 handleInput(input);
 
-            } catch (DukeException e) {
+            } catch (NikoException e) {
                 ui.showErrorMessage(e.getMessage());
             }
         }
@@ -30,19 +30,24 @@ public class Niko {
         ui.showGoodbyeMessage();
     }
 
-    private void handleInput(String input) throws DukeException {
+    private void handleInput(String input) throws NikoException {
         if (input.startsWith("todo")) {
-            String description = input.substring(5).trim();
-            if (description.isEmpty()) {
-                throw new DukeException("The description of a todo cannot be empty.");
+            if(input.length()>5){
+                String description = input.substring(5).trim();
+                if (description.isEmpty()) {
+                    throw new NikoException("The description of a todo cannot be empty.");
+                }
+                taskManager.addTask(new Todo(description));
+                ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
+            }else{
+                throw new NikoException("The description of a todo cannot be empty.");
             }
-            taskManager.addTask(new Todo(description));
-            ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
+
 
         } else if (input.startsWith("deadline")) {
             String[] parts = input.substring(9).split("/by ");
             if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new DukeException("The description or deadline of a deadline cannot be empty.");
+                throw new NikoException("The description or deadline of a deadline cannot be empty.");
             }
             String description = parts[0].trim();
             String by = parts[1].trim();
@@ -52,7 +57,7 @@ public class Niko {
         } else if (input.startsWith("event")) {
             String[] parts = input.substring(6).split("/from |/to ");
             if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                throw new DukeException("The description or date/time of an event cannot be empty.");
+                throw new NikoException("The description or date/time of an event cannot be empty.");
             }
             String description = parts[0].trim();
             String from = parts[1].trim();
@@ -79,7 +84,7 @@ public class Niko {
             ui.showDeleteTaskMessage(removedTask, taskManager.getTaskCount());
 
         } else {
-            throw new DukeException("I'm sorry, I don't know what that means.");
+            throw new NikoException("I'm sorry, I don't know what that means.");
         }
     }
 }
