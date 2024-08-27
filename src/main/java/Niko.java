@@ -1,16 +1,30 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Niko {
     private final String name;
     private final Ui ui;
     private final TaskManager taskManager;
-
+    private final Storage storage;
+    public String readyToWrite;
     public Niko(String name) {
         this.name = name;
         this.ui = new Ui();
         this.taskManager = new TaskManager();
+        this.storage = new Storage("D://example.txt");
     }
 
     public void start() {
         ui.showWelcomeMessage(this.name);
+        try {
+            ArrayList<Task> tasks = storage.load();
+            for (Task task : tasks) {
+                taskManager.addTask(task);
+            }
+            ui.showLoadSuccessMessage(tasks.size());
+        } catch (IOException e) {
+            ui.showErrorMessage("Error loading tasks from file: " + e.getMessage());
+        }
 
         while (true) {
             try {
@@ -39,6 +53,8 @@ public class Niko {
                 }
                 taskManager.addTask(new Todo(description));
                 ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
+                readyToWrite = taskManager.getTasks().toString();
+                storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
             }else{
                 throw new NikoException("The description of a todo cannot be empty.");
             }
@@ -53,7 +69,8 @@ public class Niko {
             String by = parts[1].trim();
             taskManager.addTask(new Deadline(description, by));
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
-
+            readyToWrite = taskManager.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
         } else if (input.startsWith("event")) {
             String[] parts = input.substring(6).split("/from |/to ");
             if (parts.length < 3 || parts[0].trim().isEmpty()) {
@@ -64,25 +81,31 @@ public class Niko {
             String to = parts[2].trim();
             taskManager.addTask(new Event(description, from, to));
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
-
+            readyToWrite = taskManager.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
         } else if (input.startsWith("list")) {
             ui.showTaskList(taskManager.getTasks());
+
 
         } else if (input.startsWith("mark")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             taskManager.markTaskAsDone(taskIndex);
             ui.showMarkTaskMessage(taskManager.getTask(taskIndex));
+            readyToWrite = taskManager.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
 
         } else if (input.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             taskManager.unmarkTaskAsDone(taskIndex);
             ui.showUnmarkTaskMessage(taskManager.getTask(taskIndex));
-
+            readyToWrite = taskManager.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
         } else if (input.startsWith("delete")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             Task removedTask = taskManager.deleteTask(taskIndex);
             ui.showDeleteTaskMessage(removedTask, taskManager.getTaskCount());
-
+            readyToWrite = taskManager.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
         } else {
             throw new NikoException("I'm sorry lah, I don't know what that means.");
         }

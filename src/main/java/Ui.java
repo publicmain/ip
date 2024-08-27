@@ -18,6 +18,9 @@ public class Ui {
     public String getUserInput() {
         return scanner.nextLine();
     }
+    public void showLoadSuccessMessage(int taskCount) {
+        System.out.println("Successfully loaded " + taskCount + " tasks from file.");
+    }
 
     public void showAddTaskMessage(Task task, int taskCount) {
         System.out.println("________________________________________");
