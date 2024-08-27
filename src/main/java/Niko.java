@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+
 public class Niko {
     private final String name;
     private final Ui ui;
     private final TaskManager taskManager;
-
+    private final DateTimeParser dateTimeParser;
     public Niko(String name) {
         this.name = name;
+        this.dateTimeParser = new DateTimeParser();
         this.ui = new Ui();
         this.taskManager = new TaskManager();
     }
@@ -65,6 +68,25 @@ public class Niko {
             taskManager.addTask(new Event(description, from, to));
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
 
+        } else if (input.startsWith("search")) {
+        if (input.length() > 7) {  // 确保长度大于 "search " (7个字符)
+            String date = input.substring(7).trim();  // 提取并去除空白字符
+            if (!date.isEmpty()) {
+                dateTimeParser.searchTasks(date,this.taskManager);
+            } else {
+                try {
+                    throw new NikoException("The description of a search cannot be empty.");
+                } catch (NikoException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            try {
+                throw new NikoException("The description of a search cannot be empty.");
+            } catch (NikoException e) {
+                throw new RuntimeException(e);
+            }
+        }
         } else if (input.startsWith("list")) {
             ui.showTaskList(taskManager.getTasks());
 
