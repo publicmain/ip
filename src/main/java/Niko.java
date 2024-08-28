@@ -5,10 +5,12 @@ public class Niko {
     private final String name;
     private final Ui ui;
     private final TaskManager taskManager;
+    private final DateTimeParser dateTimeParser;
     private final Storage storage;
     public String readyToWrite;
     public Niko(String name) {
         this.name = name;
+        this.dateTimeParser = new DateTimeParser();
         this.ui = new Ui();
         this.taskManager = new TaskManager();
         this.storage = new Storage("D://example.txt");
@@ -71,6 +73,7 @@ public class Niko {
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
             readyToWrite = taskManager.getTasks().toString();
             storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+
         } else if (input.startsWith("event")) {
             String[] parts = input.substring(6).split("/from |/to ");
             if (parts.length < 3 || parts[0].trim().isEmpty()) {
@@ -83,9 +86,28 @@ public class Niko {
             ui.showAddTaskMessage(taskManager.getLastTask(), taskManager.getTaskCount());
             readyToWrite = taskManager.getTasks().toString();
             storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+
+        } else if (input.startsWith("search")) {
+        if (input.length() > 7) {
+            String date = input.substring(7).trim();
+            if (!date.isEmpty()) {
+                dateTimeParser.searchTasks(date,this.taskManager);
+            } else {
+                try {
+                    throw new NikoException("The description of a search cannot be empty.");
+                } catch (NikoException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            try {
+                throw new NikoException("The description of a search cannot be empty.");
+            } catch (NikoException e) {
+                throw new RuntimeException(e);
+            }
+        }
         } else if (input.startsWith("list")) {
             ui.showTaskList(taskManager.getTasks());
-
 
         } else if (input.startsWith("mark")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -94,18 +116,22 @@ public class Niko {
             readyToWrite = taskManager.getTasks().toString();
             storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
 
+
         } else if (input.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             taskManager.unmarkTaskAsDone(taskIndex);
             ui.showUnmarkTaskMessage(taskManager.getTask(taskIndex));
             readyToWrite = taskManager.getTasks().toString();
             storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+
+
         } else if (input.startsWith("delete")) {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             Task removedTask = taskManager.deleteTask(taskIndex);
             ui.showDeleteTaskMessage(removedTask, taskManager.getTaskCount());
             readyToWrite = taskManager.getTasks().toString();
             storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+
         } else {
             throw new NikoException("I'm sorry lah, I don't know what that means.");
         }

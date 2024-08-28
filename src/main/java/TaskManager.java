@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TaskManager {
     private ArrayList<Task> tasks;
@@ -31,7 +32,14 @@ public class TaskManager {
         Task task = getTask(index);
         task.markAsDone();
     }
-
+    public void setDate(Date date){
+        Task task = getLastTask();
+        task.setDate(date);
+    }
+    public Date getDate(){
+        Task task = getLastTask();
+        return task.getDate();
+    }
     public void unmarkTaskAsDone(int index) {
         Task task = getTask(index);
         task.unmarkAsDone();
