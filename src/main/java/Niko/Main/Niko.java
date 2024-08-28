@@ -1,3 +1,10 @@
+package Niko.Main;
+
+import Niko.Command.Command;
+import Niko.Common.NikoException;
+import Niko.Task.Task;
+import Niko.Task.TaskList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

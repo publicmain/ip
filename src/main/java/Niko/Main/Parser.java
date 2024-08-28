@@ -1,3 +1,11 @@
+package Niko.Main;
+
+import Niko.Command.*;
+import Niko.Common.NikoException;
+import Niko.Task.Deadline;
+import Niko.Task.Event;
+import Niko.Task.Todo;
+
 public class Parser {
     public static Command parse(String fullCommand) throws NikoException {
         String[] words = fullCommand.split(" ", 2);

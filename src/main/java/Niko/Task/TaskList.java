@@ -1,3 +1,5 @@
+package Niko.Task;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,7 +22,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
-            throw new IndexOutOfBoundsException("Task index is out of bounds.");
+            throw new IndexOutOfBoundsException("Niko.Main.Niko.Task.Task index is out of bounds.");
         }
     }
 

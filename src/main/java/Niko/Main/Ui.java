@@ -1,3 +1,7 @@
+package Niko.Main;
+
+import Niko.Task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

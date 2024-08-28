@@ -1,3 +1,5 @@
+package Niko.Task;
+
 import java.util.Date;
 
 public class Task {
