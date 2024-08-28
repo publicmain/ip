@@ -11,10 +11,10 @@ public class Storage {
     }
 
     public void write(String tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("D://example.txt"))) {
-            writer.write(tasks);  // 写入数据到文件
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("example.txt"))) {
+            writer.write(tasks);
         } catch (IOException e) {
-            e.printStackTrace();  // 处理可能的异常
+            e.printStackTrace();
         }
     }
 

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskManager {
+public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TaskManager() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 

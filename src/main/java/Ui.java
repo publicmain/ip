@@ -82,4 +82,8 @@ public class Ui {
         System.out.println("OOPS!!! " + "No matching tasks found!");
         System.out.println("________________________________________");
     }
+
+    public void showLine() {
+        System.out.println("________________________________________");
+    }
 }

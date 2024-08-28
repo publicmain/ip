@@ -39,7 +39,7 @@ public class DateTimeParser {
 
     public DateTimeParser() {}
 
-    public void searchTasks(String date, TaskManager taskManager) {
+    public void searchTasks(String date, TaskList taskList) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         DateTimeFormatter fullDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -77,7 +77,7 @@ public class DateTimeParser {
             }
         }
 
-        for (Task task : taskManager.getTasks()) {
+        for (Task task : taskList.getTasks()) {
             if (task instanceof Deadline) {
                 LocalDateTime taskDateTime = ((Deadline) task).getBy();
                 compareTime(matchingTasks, fullDate, yearMonth, year,
