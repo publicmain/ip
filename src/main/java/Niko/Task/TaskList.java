@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     public Task getLastTask() {
-        return tasks.getLast();
+        return tasks.get(tasks.size() - 1);
     }
 
     public void markTaskAsDone(int index) {

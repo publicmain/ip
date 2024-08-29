@@ -10,7 +10,7 @@ public class Task {
 
     public Task(String description, TaskType type) {
         this.description = description;
-        this.status = TaskStatus.NOT_DONE;  // 默认任务未完成
+        this.status = TaskStatus.NOT_DONE;
         this.type = type;
     }
     public void setDate(Date date){
@@ -20,7 +20,7 @@ public class Task {
         return this.date;
     }
     public String getStatusIcon() {
-        return (status == TaskStatus.DONE ? "X" : " ");  // 根据状态返回图标
+        return (status == TaskStatus.DONE ? "X" : " ");
     }
 
     public void markAsDone() {
