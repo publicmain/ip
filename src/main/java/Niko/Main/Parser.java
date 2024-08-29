@@ -42,6 +42,9 @@ public class Parser {
                 return new UnmarkCommand(Integer.parseInt(words[1]));
             case "search":
                 return new SearchCommand(words[1]);
+            case "find":
+
+                return new FindCommand(words[1]);
             default:
                 throw new NikoException("I'm sorry, but I don't know what that means :-(");
         }
