@@ -9,7 +9,7 @@ import Niko.Task.TaskList;
  * Represents a command to unmark a task as done in the task list.
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private int INDEX;
 
     /**
      * Constructs an UnmarkCommand with the specified task index.
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to be unmarked as done (1-based).
      */
     public UnmarkCommand(int index) {
-        this.index = index;
+        this.INDEX = index;
     }
 
     /**
@@ -31,8 +31,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
-        tasks.unmarkTaskAsDone(index - 1);
-        ui.showUnmarkTaskMessage(tasks.getTask(index - 1));
+        tasks.unmarkTaskAsDone(INDEX - 1);
+        ui.showUnmarkTaskMessage(tasks.getTask(INDEX - 1));
         String readyToWrite = tasks.getTasks().toString();
         storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
     }
