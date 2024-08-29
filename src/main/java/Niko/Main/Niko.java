@@ -8,12 +8,26 @@ import Niko.Task.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the main Niko chatbot application.
+ * It handles the initialization, execution of commands, and termination of the chatbot.
+ */
 public class Niko {
 
+    /** The storage to read and write tasks. */
     private Storage storage;
+
+    /** The list of tasks managed by the chatbot. */
     private final TaskList taskList;
+
+    /** The UI to interact with the user. */
     private Ui ui;
 
+    /**
+     * Constructs a Niko chatbot with the specified file path for storage.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Niko(String filePath) {
         this.taskList = new TaskList();
         ui = new Ui();
@@ -29,6 +43,9 @@ public class Niko {
         }
     }
 
+    /**
+     * Runs the chatbot, continuously accepting and executing user commands until the exit command is given.
+     */
     public void run() {
         ui.showWelcomeMessage("Niko");
 
@@ -47,5 +64,4 @@ public class Niko {
         }
         ui.showGoodbyeMessage();
     }
-
 }

@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * A utility class that provides methods for parsing date and time strings,
+ * and for searching tasks based on dates.
+ */
 public class DateTimeParser {
 
     private static final List<DateTimeFormatter> dateTimeFormatters = new ArrayList<>();
@@ -20,6 +24,7 @@ public class DateTimeParser {
     private static final Ui ui = new Ui();
 
     static {
+        // Initialize various date and time formatters.
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", Locale.ENGLISH));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
@@ -45,8 +50,18 @@ public class DateTimeParser {
         dateOnlyFormatters.add(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
+    /**
+     * Constructs a DateTimeParser object.
+     */
     public DateTimeParser() {}
 
+    /**
+     * Searches for tasks in the given TaskList that match the specified date.
+     * The date can be a full date, a year and month, or just a year.
+     *
+     * @param date The date string to search for.
+     * @param taskList The list of tasks to search through.
+     */
     public void searchTasks(String date, TaskList taskList) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         DateTimeFormatter fullDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -104,6 +119,20 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Compares the given task date and time against the specified date/time parts,
+     * and adds the task to the matchingTasks list if there is a match.
+     *
+     * @param matchingTasks The list to add matching tasks to.
+     * @param fullDate The full date to compare against.
+     * @param yearMonth The year and month to compare against.
+     * @param year The year to compare against.
+     * @param isFullDate Whether the input date was parsed as a full date.
+     * @param isYearMonth Whether the input date was parsed as a year and month.
+     * @param isYear Whether the input date was parsed as a year.
+     * @param task The task to check.
+     * @param taskDateTime The date and time of the task.
+     */
     private void compareTime(ArrayList<Task> matchingTasks, LocalDateTime fullDate,
                              YearMonth yearMonth, Year year, boolean isFullDate, boolean isYearMonth,
                              boolean isYear, Task task, LocalDateTime taskDateTime) {
@@ -116,6 +145,13 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Parses the given date and time string into a LocalDateTime object.
+     *
+     * @param dateTimeString The date and time string to parse.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeParseException If the date and time string cannot be parsed.
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) throws DateTimeParseException {
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
@@ -137,6 +173,13 @@ public class DateTimeParser {
         throw new DateTimeParseException("Unable to parse date: " + dateTimeString, dateTimeString, 0);
     }
 
+    /**
+     * Converts a given date string into a LocalDateTime object using specific formats.
+     *
+     * @param inputDate The date string to convert.
+     * @return The converted LocalDateTime object.
+     * @throws DateTimeParseException If the date string cannot be parsed.
+     */
     public static LocalDateTime convertDate(String inputDate) {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", Locale.ENGLISH);

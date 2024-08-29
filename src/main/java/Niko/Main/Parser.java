@@ -6,7 +6,17 @@ import Niko.Task.Deadline;
 import Niko.Task.Event;
 import Niko.Task.Todo;
 
+/**
+ * The Parser class is responsible for parsing user input and creating corresponding Command objects.
+ */
 public class Parser {
+    /**
+     * Parses the user's full command input and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command input by the user.
+     * @return The Command object corresponding to the user's input.
+     * @throws NikoException If the command is not recognized.
+     */
     public static Command parse(String fullCommand) throws NikoException {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
