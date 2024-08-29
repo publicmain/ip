@@ -1,6 +1,7 @@
 package Niko.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class TaskList {
@@ -18,11 +19,26 @@ public class TaskList {
         return tasks;
     }
 
+    public ArrayList<Task> findTasks(String description) {
+        ArrayList<Task> findTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            String info = task.getDescription();
+            String[] parts = info.split(" ");
+            if ((parts.length > 0 && parts[0].equals(description)) ||
+                    (parts.length > 1 && parts[1].equals(description))) {
+                System.out.println("Match found: " + task);
+                findTasks.add(task);
+            }
+        }
+        System.out.println("Search complete. Number of matching tasks found: " + findTasks.size());
+        return findTasks;
+    }
+
     public Task getTask(int index) {
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
-            throw new IndexOutOfBoundsException("Niko.Main.Niko.Task.Task index is out of bounds.");
+            throw new IndexOutOfBoundsException("index is out of bounds.");
         }
     }
 
