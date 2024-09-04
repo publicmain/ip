@@ -27,14 +27,15 @@ public class UnmarkCommand extends Command {
      * @param tasks   The task list to operate on.
      * @param ui      The UI to interact with the user.
      * @param storage The storage to save the updated task list.
+     * @return
      * @throws NikoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         tasks.unmarkTaskAsDone(index - 1);
-        ui.showUnmarkTaskMessage(tasks.getTask(index - 1));
         String readyToWrite = tasks.getTasks().toString();
         storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+        return ui.showUnmarkTaskMessage(tasks.getTask(index - 1));
     }
 
     /**

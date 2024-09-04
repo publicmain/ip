@@ -28,12 +28,13 @@ public class SearchCommand extends Command {
      * @param tasks   The task list to search through.
      * @param ui      The UI to display the search results.
      * @param storage The storage (not used in this command).
+     * @return
      * @throws NikoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         DateTimeParser parser = new DateTimeParser();
-        parser.searchTasks(query, tasks);
+        return parser.searchTasks(query, tasks);
     }
 
     /**

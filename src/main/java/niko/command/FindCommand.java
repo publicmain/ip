@@ -29,25 +29,28 @@ public class FindCommand extends Command {
      * If no matching tasks are found, a message is displayed to the user.
      * If an error occurs during the search, an error message is displayed.
      *
-     * @param tasks The task list to search within.
-     * @param ui The user interface to display messages.
+     * @param tasks   The task list to search within.
+     * @param ui      The user interface to display messages.
      * @param storage The storage to save data if needed.
+     * @return
      * @throws NikoException If an error occurs during the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+        String response;
         try {
             ArrayList<Task> taskList = tasks.findTasks(this.description);
 
             if (taskList == null || taskList.isEmpty()) {
-                ui.showNoMatchingTasksMessage();
+                response = ui.showNoMatchingTasksMessage();
             } else {
-                ui.showTaskList(taskList);
+                response = ui.showTaskList(taskList);
             }
 
         } catch (Exception e) {
 
-            ui.showErrorMessage("An error occurred while finding tasks: " + e.getMessage());
+            response = ui.showErrorMessage("An error occurred while finding tasks: " + e.getMessage());
         }
+        return response;
     }
 }

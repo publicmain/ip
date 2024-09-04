@@ -18,9 +18,10 @@ public abstract class Command {
      * @param tasks   The task list to operate on.
      * @param ui      The UI to interact with the user.
      * @param storage The storage to save or load tasks.
+     * @return
      * @throws NikoException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException;
 
     /**
      * Indicates whether this command will exit the application.

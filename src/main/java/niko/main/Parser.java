@@ -30,32 +30,25 @@ public class Parser {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
 
-        switch (commandWord) {
-        case "todo":
-            return new AddCommand(new Todo(words[1]));
-        case "deadline":
-            String[] parts = words[1].split(" /by ");
-            return new AddCommand(new Deadline(parts[0], parts[1]));
-        case "event":
-            String[] eventParts = words[1].split(" /from | /to ");
-            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
-        case "list":
-            return new ListCommand();
-        case "bye":
-            return new ExitCommand();
-        case "delete":
-            return new DeleteCommand(Integer.parseInt(words[1]));
-        case "mark":
-            return new MarkCommand(Integer.parseInt(words[1]));
-        case "unmark":
-            return new UnmarkCommand(Integer.parseInt(words[1]));
-        case "search":
-            return new SearchCommand(words[1]);
-        case "find":
-            return new FindCommand(words[1]);
-        default:
-            throw new NikoException("I'm sorry, but I don't know what that means :-(");
-        }
+        return switch (commandWord) {
+            case "todo" -> new AddCommand(new Todo(words[1]));
+            case "deadline" -> {
+                String[] parts = words[1].split(" /by ");
+                yield new AddCommand(new Deadline(parts[0], parts[1]));
+            }
+            case "event" -> {
+                String[] eventParts = words[1].split(" /from | /to ");
+                yield new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            }
+            case "list" -> new ListCommand();
+            case "bye" -> new ExitCommand();
+            case "delete" -> new DeleteCommand(Integer.parseInt(words[1]));
+            case "mark" -> new MarkCommand(Integer.parseInt(words[1]));
+            case "unmark" -> new UnmarkCommand(Integer.parseInt(words[1]));
+            case "search" -> new SearchCommand(words[1]);
+            case "find" -> new FindCommand(words[1]);
+            default -> throw new NikoException("I'm sorry, but I don't know what that means :-(");
+        };
     }
 }
 

@@ -16,11 +16,13 @@ public class ListCommand extends Command {
      * @param tasks   The task list to display.
      * @param ui      The UI to display the task list.
      * @param storage The storage (not used in this command).
+     * @return
      * @throws NikoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
-        ui.showTaskList(tasks.getTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+        String response = ui.showTaskList(tasks.getTasks());
+        return response;
     }
 
     /**

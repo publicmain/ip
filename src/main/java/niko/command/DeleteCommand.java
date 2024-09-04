@@ -28,14 +28,16 @@ public class DeleteCommand extends Command {
      * @param tasks   The task list to operate on.
      * @param ui      The UI to interact with the user.
      * @param storage The storage to save the updated task list.
+     * @return
      * @throws NikoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         Task removedTask = tasks.deleteTask(index - 1);
-        ui.showDeleteTaskMessage(removedTask, tasks.getTaskCount());
+        String response = ui.showDeleteTaskMessage(removedTask, tasks.getTaskCount());
         String readyToWrite = tasks.getTasks().toString();
         storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+        return response;
     }
 
     /**

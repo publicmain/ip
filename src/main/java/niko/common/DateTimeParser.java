@@ -67,11 +67,12 @@ public class DateTimeParser {
      * @param date The date string to search for.
      * @param taskList The list of tasks to search through.
      */
-    public void searchTasks(String date, TaskList taskList) {
+    public String searchTasks(String date, TaskList taskList) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         DateTimeFormatter fullDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
         DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");
+        String response;
 
         LocalDateTime fullDate = null;
         YearMonth yearMonth = null;
@@ -118,10 +119,11 @@ public class DateTimeParser {
         }
 
         if (!matchingTasks.isEmpty()) {
-            ui.showTaskList(matchingTasks);
+            response = ui.showTaskList(matchingTasks);
         } else {
-            ui.showNoMatchingTasksMessage();
+            response = ui.showNoMatchingTasksMessage();
         }
+        return response;
     }
 
     /**

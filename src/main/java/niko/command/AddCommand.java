@@ -37,15 +37,16 @@ public class AddCommand extends Command {
      * Executes the add command, which adds the task to the task list,
      * updates the UI with the new task, and writes the updated task list to storage.
      *
-     * @param tasks The task list to which the task will be added.
-     * @param ui The UI to be updated with the new task.
+     * @param tasks   The task list to which the task will be added.
+     * @param ui      The UI to be updated with the new task.
      * @param storage The storage where the updated task list will be written.
+     * @return
      * @throws NikoException If there is an error during the writing process to the storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         tasks.addTask(this.task);
-        ui.showAddTaskMessage(this.task, tasks.getTaskCount());
         this.readyToWrite = tasks.getTasks().toString();
         storage.write(this.readyToWrite.substring(1, this.readyToWrite.length() - 1));
+        return ui.showAddTaskMessage(this.task, tasks.getTaskCount());
     }
 }
