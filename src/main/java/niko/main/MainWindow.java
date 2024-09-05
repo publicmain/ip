@@ -24,43 +24,50 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Niko niko;
-    private Ui ui;
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("images/images.jpeg")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("images/images2.jpeg")));
-    private String input;
-    private String response;
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/images.jpeg")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/images2.jpeg")));
 
     @FXML
     public void initialize() {
+        // Bind the ScrollPane's scroll value to the dialog container's height to auto-scroll
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setNiko(Niko d) {
-        niko = d;
+    /**
+     * Sets the Niko instance for processing user input.
+     *
+     * @param niko The Niko chatbot instance.
+     */
+    public void setNiko(Niko niko) {
+        this.niko = niko;
+        this.niko.setMainWindow(this);  // Ensure Niko has access to MainWindow
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles the user input by passing it to Niko and displaying the response.
      */
-    public void setInput(String input) {
-        this.input = input;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
     @FXML
     public void handleUserInput() {
-        niko.run();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
-        userInput.clear();
+        // Get user input from the text field
+        String input = userInput.getText();
+        if (!input.trim().isEmpty()) {
+            // Pass the input to Niko for processing
+            niko.processUserInput(input);
+        }
+        userInput.clear();  // Clear the input field after processing
     }
 
-
-
+    /**
+     * Sets and displays the user input and Niko's response in the dialog container.
+     *
+     * @param userText The user's input text.
+     * @param nikoText Niko's response text.
+     */
+    public void showDialog(String userText, String nikoText) {
+        // Add the user dialog and Niko's response to the dialog container
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(nikoText, dukeImage)
+        );
+    }
 }

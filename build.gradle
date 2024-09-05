@@ -8,15 +8,16 @@ plugins {
 repositories {
     mavenCentral()
 }
+
 checkstyle {
     toolVersion = '10.2'
 }
+
 allprojects {
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
 }
-
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
@@ -37,14 +38,11 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-
-
 test {
     useJUnitPlatform()
 
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -60,9 +58,37 @@ application {
 shadowJar {
     archiveFileName = 'ip.jar'
     archiveBaseName = "ip"
-    archiveClassifier = null
+    archiveClassifier = null  // 确保没有额外分类器
 }
 
-run{
+run {
     standardInput = System.in
+}
+
+/*
+  修复依赖问题：
+  为 distZip、distTar、startScripts、startShadowScripts 任务添加对 jar 和 shadowJar 的依赖
+*/
+
+distZip {
+    dependsOn shadowJar
+}
+
+distTar {
+    dependsOn shadowJar
+}
+
+startScripts {
+    dependsOn shadowJar
+}
+
+startShadowScripts {
+    dependsOn jar
+}
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
 }
