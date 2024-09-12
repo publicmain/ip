@@ -29,16 +29,24 @@ public class Parser {
     public static Command parse(String fullCommand) throws NikoException {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
-
         return switch (commandWord) {
             case "todo" -> new AddCommand(new Todo(words[1]));
             case "deadline" -> {
-                String[] parts = words[1].split(" /by ");
-                yield new AddCommand(new Deadline(parts[0], parts[1]));
+                try {
+                    String[] parts = words[1].split(" /by ");
+                    yield new AddCommand(new Deadline(parts[0], parts[1]));
+                }catch (Exception e){
+                    throw new NikoException("I'm sorry, please indicate task and date");
+                }
             }
             case "event" -> {
-                String[] eventParts = words[1].split(" /from | /to ");
-                yield new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                try{
+                    String[] eventParts = words[1].split(" /from | /to ");
+                    yield new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                }catch (Exception e){
+                    throw new NikoException("I'm sorry, please indicate event");
+                }
+
             }
             case "list" -> new ListCommand();
             case "bye" -> new ExitCommand();
