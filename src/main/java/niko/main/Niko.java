@@ -51,27 +51,17 @@ public class Niko {
         boolean isExit = false;
         while (!isExit) {
             try {
-
                 String fullCommand = ui.getUserInput();
-
                 Command command = Parser.parse(fullCommand);
                 response = command.execute(taskList, ui, storage);
-
                 mainWindow.setInput(fullCommand);
                 mainWindow.setResponse(response);
-
-                // 调用 handleUserInput 方法
                 mainWindow.handleUserInput();
-
                 isExit = command.isExit();
             } catch (NikoException e) {
-
                 response = ui.showErrorMessage(e.getMessage());
-
-
                 mainWindow.setInput("");
                 mainWindow.setResponse(response);
-
                 mainWindow.handleUserInput();
             }
         }

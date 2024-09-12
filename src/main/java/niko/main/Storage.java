@@ -55,14 +55,11 @@ public class Storage {
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-
         if (!file.exists()) {
             return tasks;
         }
-
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
-
         while ((line = reader.readLine()) != null) {
             line = line.trim();
             String[] parts = line.split(", ");
@@ -73,7 +70,6 @@ public class Storage {
                 }
             }
         }
-
         reader.close();
         return tasks;
     }
@@ -87,10 +83,8 @@ public class Storage {
     private Task parseTask(String line) {
         char typeChar = line.charAt(1);
         boolean isDone = line.charAt(4) == 'X';
-
         String description;
         Task task = null;
-
         switch (typeChar) {
         case 'T':
             description = line.substring(7).trim();
@@ -113,7 +107,6 @@ public class Storage {
         if (isDone) {
             task.markAsDone();
         }
-
         return task;
     }
 }
