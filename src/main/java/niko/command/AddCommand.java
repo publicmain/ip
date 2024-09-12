@@ -44,9 +44,23 @@ public class AddCommand extends Command {
      * @throws NikoException If there is an error during the writing process to the storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+        assert tasks != null : "TaskList cannot be null in execute";
+        assert ui != null : "UI cannot be null in execute";
+        assert storage != null : "Storage cannot be null in execute";
+
         tasks.addTask(this.task);
+
+        // Assert that the task was added successfully
+        assert tasks.getTasks().contains(this.task) : "Task was not added to the task list";
+
         this.readyToWrite = tasks.getTasks().toString();
+
+        // Ensure that readyToWrite is a valid string before writing to storage
+        assert readyToWrite.length() > 2 : "readyToWrite must contain valid task data";
+
         storage.write(this.readyToWrite.substring(1, this.readyToWrite.length() - 1));
+
+        // Ensure that the write was successful (you may want to verify in Storage class)
         return ui.showAddTaskMessage(this.task, tasks.getTaskCount());
     }
 }

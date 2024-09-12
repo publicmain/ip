@@ -37,20 +37,20 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
-        String response;
+        assert tasks != null : "TaskList cannot be null in FindCommand";
+        assert ui != null : "UI cannot be null in FindCommand";
+
         try {
             ArrayList<Task> taskList = tasks.findTasks(this.description);
+            assert taskList != null : "Task list search result cannot be null";
 
-            if (taskList == null || taskList.isEmpty()) {
-                response = ui.showNoMatchingTasksMessage();
+            if (taskList.isEmpty()) {
+                return ui.showNoMatchingTasksMessage();
             } else {
-                response = ui.showTaskList(taskList);
+                return ui.showTaskList(taskList);
             }
-
         } catch (Exception e) {
-
-            response = ui.showErrorMessage("An error occurred while finding tasks: " + e.getMessage());
+            return ui.showErrorMessage("An error occurred while finding tasks: " + e.getMessage());
         }
-        return response;
     }
 }
