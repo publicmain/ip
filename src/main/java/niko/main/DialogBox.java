@@ -24,7 +24,6 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         Label label = new Label(text);
         ImageView imageView = new ImageView(img);
-
         return new DialogBox(label,imageView);
     }
 }
