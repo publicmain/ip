@@ -27,6 +27,9 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public void addTasks(ArrayList<Task> tasks) {
+        this.tasks.addAll(tasks);
+    }
     /**
      * Returns the list of tasks.
      *
