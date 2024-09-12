@@ -7,7 +7,6 @@ import niko.command.Command;
 import niko.common.NikoException;
 import niko.task.Task;
 import niko.task.TaskList;
-
 /**
  * Represents the main Niko chatbot application.
  * It handles the initialization, execution of commands, and termination of the chatbot.
@@ -23,9 +22,7 @@ public class Niko {
     /** The UI to interact with the user. */
     private final Ui ui;
 
-    /** The main window for interacting with the GUI. */
     private MainWindow mainWindow;
-
     /**
      * Constructs a Niko chatbot with the specified file path for storage.
      *
@@ -47,37 +44,37 @@ public class Niko {
     }
 
     /**
-     * Sets the MainWindow instance for interaction between Niko and the GUI.
-     *
-     * @param mainWindow The MainWindow instance.
+     * Runs the chatbot, continuously accepting and executing user commands until the exit command is given.
      */
-    public void setMainWindow(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-    }
+    public void run() {
+        String response = ui.showGoodbyeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
 
-    /**
-     * Processes the user input and provides a response.
-     * This method is triggered by user input in the GUI.
-     *
-     * @param input The user's input command.
-     */
-    public void processUserInput(String input) {
-        try {
-            // Parse and execute the command
-            Command command = Parser.parse(input);
-            String response = command.execute(taskList, ui, storage);
+                String fullCommand = ui.getUserInput();
 
-            // Show the user input and Niko's response in the MainWindow
-            mainWindow.showDialog(input, response);
+                Command command = Parser.parse(fullCommand);
+                response = command.execute(taskList, ui, storage);
 
-            // Exit if the command is an exit command
-            if (command.isExit()) {
-                ui.showGoodbyeMessage();
+                mainWindow.setInput(fullCommand);
+                mainWindow.setResponse(response);
+
+                // 调用 handleUserInput 方法
+                mainWindow.handleUserInput();
+
+                isExit = command.isExit();
+            } catch (NikoException e) {
+
+                response = ui.showErrorMessage(e.getMessage());
+
+
+                mainWindow.setInput("");
+                mainWindow.setResponse(response);
+
+                mainWindow.handleUserInput();
             }
-        } catch (NikoException e) {
-            // Handle any Niko-specific exceptions and show the error message
-            String response = ui.showErrorMessage(e.getMessage());
-            mainWindow.showDialog(input, response);
         }
     }
+
 }
