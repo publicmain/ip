@@ -7,5 +7,5 @@ package niko.task;
  */
 
 public enum TaskType {
-    TODO, DEADLINE, EVENT,ERROR
+    TODO, DEADLINE, EVENT
 }

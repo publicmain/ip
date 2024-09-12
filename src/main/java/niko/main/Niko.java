@@ -34,7 +34,9 @@ public class Niko {
         storage = new Storage(filePath);
         try {
             ArrayList<Task> tasks = storage.load();
-            taskList.addTasks(tasks);
+            for (Task task : tasks) {
+                taskList.addTask(task);
+            }
             ui.showLoadSuccessMessage(tasks.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -44,17 +46,24 @@ public class Niko {
     /**
      * Runs the chatbot, continuously accepting and executing user commands until the exit command is given.
      */
-    public void processUserInput(String input) {
-        try {
-            Command command = Parser.parse(input);
-            String response = command.execute(taskList, ui, storage);
-            mainWindow.showDialog(input, response);
-            if (command.isExit()) {
-                ui.showGoodbyeMessage();
+    public void run() {
+        String response = ui.showGoodbyeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.getUserInput();
+                Command command = Parser.parse(fullCommand);
+                response = command.execute(taskList, ui, storage);
+                mainWindow.setInput(fullCommand);
+                mainWindow.setResponse(response);
+                mainWindow.handleUserInput();
+                isExit = command.isExit();
+            } catch (NikoException e) {
+                response = ui.showErrorMessage(e.getMessage());
+                mainWindow.setInput("");
+                mainWindow.setResponse(response);
+                mainWindow.handleUserInput();
             }
-        } catch (NikoException e) {
-            String response = ui.showErrorMessage(e.getMessage());
-            mainWindow.showDialog(input, response);
         }
     }
 

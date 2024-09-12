@@ -32,21 +32,12 @@ public class Parser {
         return switch (commandWord) {
             case "todo" -> new AddCommand(new Todo(words[1]));
             case "deadline" -> {
-                try {
-                    String[] parts = words[1].split(" /by ");
-                    yield new AddCommand(new Deadline(parts[0], parts[1]));
-                }catch (Exception e){
-                    throw new NikoException("I'm sorry, please indicate task and date");
-                }
+                String[] parts = words[1].split(" /by ");
+                yield new AddCommand(new Deadline(parts[0], parts[1]));
             }
             case "event" -> {
-                try{
-                    String[] eventParts = words[1].split(" /from | /to ");
-                    yield new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
-                }catch (Exception e){
-                    throw new NikoException("I'm sorry, please indicate event");
-                }
-
+                String[] eventParts = words[1].split(" /from | /to ");
+                yield new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
             }
             case "list" -> new ListCommand();
             case "bye" -> new ExitCommand();
