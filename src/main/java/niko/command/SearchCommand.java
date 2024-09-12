@@ -33,6 +33,9 @@ public class SearchCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+        assert tasks != null : "TaskList cannot be null in SearchCommand";
+        assert ui != null : "UI cannot be null in SearchCommand";
+
         DateTimeParser parser = new DateTimeParser();
         return parser.searchTasks(query, tasks);
     }

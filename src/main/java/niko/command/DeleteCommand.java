@@ -33,11 +33,23 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
-        Task removedTask = tasks.deleteTask(index - 1);
-        String response = ui.showDeleteTaskMessage(removedTask, tasks.getTaskCount());
-        String readyToWrite = tasks.getTasks().toString();
-        storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
-        return response;
+        assert tasks != null : "TaskList cannot be null in DeleteCommand";
+        assert ui != null : "UI cannot be null in DeleteCommand";
+        assert storage != null : "Storage cannot be null in DeleteCommand";
+        assert index <= tasks.getTaskCount() : "Index is out of bounds"; // Ensure index is valid
+        try {
+            Task removedTask = tasks.deleteTask(index - 1);
+//            assert removedTask != null : "No task was removed";
+            String response = ui.showDeleteTaskMessage(removedTask, tasks.getTaskCount());
+            String readyToWrite = tasks.getTasks().toString();
+            storage.write(readyToWrite.substring(1, readyToWrite.length() - 1));
+            return response;
+        }catch(Exception e){
+            return ui.showErrorMessage("Could not delete task " + index + ": " + e.getMessage());
+        }
+        // Ensure the task was successfully removed
+
+
     }
 
     /**

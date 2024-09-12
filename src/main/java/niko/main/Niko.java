@@ -7,7 +7,6 @@ import niko.command.Command;
 import niko.common.NikoException;
 import niko.task.Task;
 import niko.task.TaskList;
-
 /**
  * Represents the main Niko chatbot application.
  * It handles the initialization, execution of commands, and termination of the chatbot.
@@ -23,9 +22,7 @@ public class Niko {
     /** The UI to interact with the user. */
     private final Ui ui;
 
-    /** The main window for interacting with the GUI. */
     private MainWindow mainWindow;
-
     /**
      * Constructs a Niko chatbot with the specified file path for storage.
      *
@@ -45,19 +42,7 @@ public class Niko {
     }
 
     /**
-     * Sets the MainWindow instance for interaction between Niko and the GUI.
-     *
-     * @param mainWindow The MainWindow instance.
-     */
-    public void setMainWindow(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-    }
-
-    /**
-     * Processes the user input and provides a response.
-     * This method is triggered by user input in the GUI.
-     *
-     * @param input The user's input command.
+     * Runs the chatbot, continuously accepting and executing user commands until the exit command is given.
      */
     public void processUserInput(String input) {
         try {
@@ -72,4 +57,5 @@ public class Niko {
             mainWindow.showDialog(input, response);
         }
     }
+
 }

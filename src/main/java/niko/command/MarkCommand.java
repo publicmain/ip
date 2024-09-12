@@ -32,6 +32,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
+        assert tasks != null : "TaskList cannot be null in MarkCommand";
+        assert ui != null : "UI cannot be null in MarkCommand";
+        assert storage != null : "Storage cannot be null in MarkCommand";
+        assert index <= tasks.getTaskCount() : "Index is out of bounds"; // Ensure valid index
+
         tasks.markTaskAsDone(index - 1);
         String response = ui.showMarkTaskMessage(tasks.getTask(index - 1));
         String readyToWrite = tasks.getTasks().toString();

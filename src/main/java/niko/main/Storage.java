@@ -60,6 +60,7 @@ public class Storage {
         if (!file.exists()) {
             return new ArrayList<>();
         }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             return reader.lines()
                     .flatMap(line -> Stream.of(line.split(", ")))
@@ -67,6 +68,7 @@ public class Storage {
                     .filter(Objects::nonNull)
                     .collect(Collectors.toCollection(ArrayList::new));  
         }
+
     }
 
     /**
@@ -78,10 +80,8 @@ public class Storage {
     private Task parseTask(String line) {
         char typeChar = line.charAt(1);
         boolean isDone = line.charAt(4) == 'X';
-
         String description;
         Task task = null;
-
         switch (typeChar) {
         case 'T':
             description = line.substring(7).trim();
@@ -104,7 +104,6 @@ public class Storage {
         if (isDone) {
             task.markAsDone();
         }
-
         return task;
     }
 }

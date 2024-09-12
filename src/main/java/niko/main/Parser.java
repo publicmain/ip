@@ -29,7 +29,6 @@ public class Parser {
     public static Command parse(String fullCommand) throws NikoException {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
-
         return switch (commandWord) {
             case "todo" -> new AddCommand(new Todo(words[1]));
             case "deadline" -> {
