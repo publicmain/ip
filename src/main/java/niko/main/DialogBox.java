@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
@@ -34,9 +35,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+
         dialog.setText(text);
         displayPicture.setImage(img);
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -47,8 +50,14 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-
+    private void flip() {
+        this.setAlignment(Pos.TOP_LEFT);
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        FXCollections.reverse(tmp);
+        this.getChildren().setAll(tmp);
+    }
     public static DialogBox getUserDialog(String text, Image img) {
+
         return new DialogBox(text, img);
     }
 
@@ -56,5 +65,6 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+
     }
 }
