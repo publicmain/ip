@@ -12,10 +12,8 @@ import javafx.stage.Stage;
 public class Main extends Application{
     /**
      * The main method to start the Niko chatbot.
-     *
-     * @param args Command line arguments.
      */
-    private Niko chatbot = new Niko("example.txt");
+    private final Niko chatbot = new Niko("example.txt");
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
@@ -24,8 +22,6 @@ public class Main extends Application{
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNiko(chatbot);
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

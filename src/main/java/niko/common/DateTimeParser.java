@@ -167,7 +167,7 @@ public class DateTimeParser {
         }
     }
 
-    private class ParsedDate {
+    private static class ParsedDate {
         LocalDateTime fullDate;
         YearMonth yearMonth;
         Year year;
