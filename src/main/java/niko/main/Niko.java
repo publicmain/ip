@@ -37,9 +37,7 @@ public class Niko {
         storage = new Storage(filePath);
         try {
             ArrayList<Task> tasks = storage.load();
-            for (Task task : tasks) {
-                taskList.addTask(task);
-            }
+            taskList.addTasks(tasks);
             ui.showLoadSuccessMessage(tasks.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -63,19 +61,13 @@ public class Niko {
      */
     public void processUserInput(String input) {
         try {
-            // Parse and execute the command
             Command command = Parser.parse(input);
             String response = command.execute(taskList, ui, storage);
-
-            // Show the user input and Niko's response in the MainWindow
             mainWindow.showDialog(input, response);
-
-            // Exit if the command is an exit command
             if (command.isExit()) {
                 ui.showGoodbyeMessage();
             }
         } catch (NikoException e) {
-            // Handle any Niko-specific exceptions and show the error message
             String response = ui.showErrorMessage(e.getMessage());
             mainWindow.showDialog(input, response);
         }

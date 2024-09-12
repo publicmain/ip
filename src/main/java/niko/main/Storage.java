@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import niko.task.Deadline;
 import niko.task.Event;
@@ -53,29 +56,17 @@ public class Storage {
      * @throws IOException If an I/O error occurs during loading.
      */
     public ArrayList<Task> load() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-
         if (!file.exists()) {
-            return tasks;
+            return new ArrayList<>();
         }
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            line = line.trim();
-            String[] parts = line.split(", ");
-            for (String part : parts) {
-                Task task = parseTask(part);
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            return reader.lines()
+                    .flatMap(line -> Stream.of(line.split(", ")))
+                    .map(this::parseTask)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toCollection(ArrayList::new));  
         }
-
-        reader.close();
-        return tasks;
     }
 
     /**

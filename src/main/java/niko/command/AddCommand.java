@@ -46,7 +46,6 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         assert tasks != null : "TaskList cannot be null in execute";
         assert ui != null : "UI cannot be null in execute";
-        assert storage != null : "Storage cannot be null in execute";
 
         tasks.addTask(this.task);
 

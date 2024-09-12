@@ -34,7 +34,6 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NikoException {
         assert tasks != null : "TaskList cannot be null in UnmarkCommand";
         assert ui != null : "UI cannot be null in UnmarkCommand";
-        assert storage != null : "Storage cannot be null in UnmarkCommand";
         assert index <= tasks.getTaskCount() : "Index is out of bounds"; // Ensure the index is within the task list size
 
         tasks.unmarkTaskAsDone(index - 1);
