@@ -19,8 +19,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String response = ui.showGoodbyeMessage();
-        return response;
+        assert ui != null : "UI cannot be null in ExitCommand"; // Ensure the UI is not null
+        return ui.showGoodbyeMessage();
     }
 
     /**
