@@ -50,8 +50,8 @@ public class TaskList {
         for (Task task : tasks) {
             String info = task.getDescription();
             String[] parts = info.split(" ");
-            if ((parts.length > 0 && parts[0].equals(description))
-                    || (parts.length > 1 && parts[1].equals(description))) {
+            if ((parts.length > 0 && parts[0].toLowerCase().contains(description.toLowerCase()))
+                    || (parts.length > 1 && parts[1].toLowerCase().contains(description.toLowerCase()))){
                 findTasks.add(task);
             }
         }
