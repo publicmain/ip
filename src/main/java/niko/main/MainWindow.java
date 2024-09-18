@@ -34,8 +34,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        // Removed the binding to prevent scroll issues
+        // Add a listener to automatically scroll to the bottom when new messages are added
+        dialogContainer.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue(1.0);
+        });
     }
+
 
     /**
      * Sets the Niko instance for processing user input.
@@ -47,7 +51,7 @@ public class MainWindow extends AnchorPane {
         this.niko.setMainWindow(this);
         // Optionally, display a welcome message
         // String welcome = niko.getUi().showWelcomeMessage("Niko");
-        // showDialog(welcome); // 确保这里没有调用，否则会重复
+        // showDialog(welcome);
     }
 
     /**
@@ -68,6 +72,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+
     /**
      * Displays the chatbot's response in the dialog container.
      *
@@ -77,8 +82,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(nikoText, dukeImage)
         );
-        // Scroll to the bottom after layout pass
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 
     /**
@@ -90,7 +93,5 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getErrorDialog(errorText)
         );
-        // Scroll to the bottom after layout pass
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }

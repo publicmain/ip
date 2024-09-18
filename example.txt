@@ -1,1 +1,1 @@
-[T][X] deadline, [D][ ] readbook (by: Nov 22 2019 11:59 PM), [T][ ] eat, [D][ ] eat (by: Oct 22 2019 11:59 PM), [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list
+[T][ ] deadline, [D][ ] readbook (by: Nov 22 2019 11:59 PM), [T][ ] eat, [D][ ] eat (by: Oct 22 2019 11:59 PM), [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list, [T][ ] list

@@ -29,7 +29,7 @@ public class Ui {
     public String showWelcomeMessage(String name) {
         return "________________________________________\n"
                 + "Hello! I'm " + name + "\n"
-                + "What can I do for you?\n"
+                + "What's up, bro?\n"
                 + "________________________________________";
     }
 
@@ -63,7 +63,7 @@ public class Ui {
         return "________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + "  " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list.\n"
+                + "Now you have " + taskCount + " tasks in the list. god bless you\n"
                 + "________________________________________";
     }
 
@@ -82,7 +82,7 @@ public class Ui {
                 sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
         } else {
-            sb.append("Your task list is empty.\n");
+            sb.append("your have no task left, enjoy!!!\n");
         }
         sb.append("________________________________________");
         return sb.toString();
@@ -96,7 +96,7 @@ public class Ui {
      */
     public String showMarkTaskMessage(Task task) {
         return "________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
+                + "got it, bro, marked as done\n"
                 + "  " + task + "\n"
                 + "________________________________________";
     }
@@ -109,7 +109,7 @@ public class Ui {
      */
     public String showUnmarkTaskMessage(Task task) {
         return "________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
+                + "emmm, changed your mind ah? okay, leave it to niko\n"
                 + "  " + task + "\n"
                 + "________________________________________";
     }
@@ -137,7 +137,7 @@ public class Ui {
      */
     public String showErrorMessage(String message) {
         return "________________________________________\n"
-                + "OOPS!!! " + message + "\n"
+                + "whats wrong with you?" + message + "\n"
                 + "________________________________________";
     }
 
