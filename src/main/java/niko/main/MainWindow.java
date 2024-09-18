@@ -93,5 +93,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getErrorDialog(errorText)
         );
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
+
 }

@@ -82,8 +82,13 @@ public class Niko {
             // Handle any Niko-specific exceptions and show the error message
             String response = ui.showErrorMessage(e.getMessage());
             mainWindow.showError(response);
+        } catch (Exception e) {
+            // Handle any unforeseen exceptions
+            String response = ui.showErrorMessage("An unexpected error occurred: " + e.getMessage());
+            mainWindow.showError(response);
         }
     }
+
 
     /**
      * Retrieves the Ui instance.
