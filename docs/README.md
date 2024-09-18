@@ -93,9 +93,3 @@ For a comprehensive guide on how to use Niko Chatbot, including detailed instruc
 - **Java 11** or higher installed on your system.
 - **Git** installed for cloning the repository.
 
-### Steps
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/your-username/niko-chatbot.git
