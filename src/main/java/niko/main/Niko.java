@@ -40,9 +40,9 @@ public class Niko {
             for (Task task : tasks) {
                 taskList.addTask(task);
             }
-            ui.showLoadSuccessMessage(tasks.size());
+            // Optionally, display a load success message
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Handle load failure
         }
     }
 
@@ -53,6 +53,9 @@ public class Niko {
      */
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
+        // Display a welcome message
+        String welcome = ui.showWelcomeMessage("Niko");
+        mainWindow.showDialog(welcome);
     }
 
     /**
@@ -67,17 +70,27 @@ public class Niko {
             Command command = Parser.parse(input);
             String response = command.execute(taskList, ui, storage);
 
-            // Show the user input and Niko's response in the MainWindow
-            mainWindow.showDialog(input, response);
+            // Show Niko's response in the MainWindow
+            mainWindow.showDialog(response);
 
             // Exit if the command is an exit command
             if (command.isExit()) {
                 ui.showGoodbyeMessage();
+                System.exit(0);
             }
         } catch (NikoException e) {
             // Handle any Niko-specific exceptions and show the error message
             String response = ui.showErrorMessage(e.getMessage());
-            mainWindow.showDialog(input, response);
+            mainWindow.showError(response);
         }
+    }
+
+    /**
+     * Retrieves the Ui instance.
+     *
+     * @return The Ui instance.
+     */
+    public Ui getUi() {
+        return this.ui;
     }
 }

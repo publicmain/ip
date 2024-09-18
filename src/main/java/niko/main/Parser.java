@@ -1,14 +1,31 @@
 package niko.main;
 
-import niko.command.*;
+import niko.command.AddCommand;
+import niko.command.Command;
+import niko.command.DeleteCommand;
+import niko.command.ExitCommand;
+import niko.command.FindCommand;
+import niko.command.ListCommand;
+import niko.command.MarkCommand;
+import niko.command.SearchCommand;
+import niko.command.UnmarkCommand;
 import niko.common.NikoException;
-import niko.task.*;
+import niko.task.Deadline;
+import niko.task.Event;
+import niko.task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and creating corresponding Command objects.
  */
 public class Parser {
 
+    /**
+     * Parses the full command input by the user and returns the appropriate Command object.
+     *
+     * @param fullCommand The full user input.
+     * @return The corresponding Command object.
+     * @throws NikoException If the command is invalid or improperly formatted.
+     */
     public static Command parse(String fullCommand) throws NikoException {
         String[] words = fullCommand.trim().split(" ", 2);
         if (words.length == 0 || words[0].isEmpty()) {

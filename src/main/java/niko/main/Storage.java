@@ -16,9 +16,6 @@ import niko.task.Event;
 import niko.task.Task;
 import niko.task.Todo;
 
-
-
-
 /**
  * Handles the loading and saving of tasks to a file.
  */
@@ -65,7 +62,7 @@ public class Storage {
                     .flatMap(line -> Stream.of(line.split(", ")))
                     .map(this::parseTask)
                     .filter(Objects::nonNull)
-                    .collect(Collectors.toCollection(ArrayList::new));  
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
     }
 
@@ -83,23 +80,23 @@ public class Storage {
         Task task = null;
 
         switch (typeChar) {
-        case 'T':
-            description = line.substring(7).trim();
-            task = new Todo(description);
-            break;
-        case 'D':
-            description = line.substring(7, line.indexOf("(by:")).trim();
-            String byDateString = line.substring(line.indexOf("(by:") + 5, line.length() - 1).trim();
-            task = new Deadline(description, byDateString);
-            break;
-        case 'E':
-            description = line.substring(7, line.indexOf("(from:")).trim();
-            String fromDateString = line.substring(line.indexOf("(from:") + 7, line.indexOf("to:")).trim();
-            String toDateString = line.substring(line.indexOf("to:") + 4, line.length() - 1).trim();
-            task = new Event(description, fromDateString, toDateString);
-            break;
-        default:
-            return null;
+            case 'T':
+                description = line.substring(7).trim();
+                task = new Todo(description);
+                break;
+            case 'D':
+                description = line.substring(7, line.indexOf("(by:")).trim();
+                String byDateString = line.substring(line.indexOf("(by:") + 5, line.length() - 1).trim();
+                task = new Deadline(description, byDateString);
+                break;
+            case 'E':
+                description = line.substring(7, line.indexOf("(from:")).trim();
+                String fromDateString = line.substring(line.indexOf("(from:") + 7, line.indexOf("to:")).trim();
+                String toDateString = line.substring(line.indexOf("to:") + 4, line.length() - 1).trim();
+                task = new Event(description, fromDateString, toDateString);
+                break;
+            default:
+                return null;
         }
         if (isDone) {
             task.markAsDone();

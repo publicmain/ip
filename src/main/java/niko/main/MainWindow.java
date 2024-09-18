@@ -1,5 +1,6 @@
 package niko.main;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -24,13 +25,16 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Niko niko;
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/images.jpeg")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/images2.jpeg")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/niko.png")));
 
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
-        // Bind the ScrollPane's scroll value to the dialog container's height to auto-scroll
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Removed the binding to prevent scroll issues
     }
 
     /**
@@ -40,7 +44,10 @@ public class MainWindow extends AnchorPane {
      */
     public void setNiko(Niko niko) {
         this.niko = niko;
-        this.niko.setMainWindow(this);  // Ensure Niko has access to MainWindow
+        this.niko.setMainWindow(this);
+        // Optionally, display a welcome message
+        // String welcome = niko.getUi().showWelcomeMessage("Niko");
+        // showDialog(welcome); // 确保这里没有调用，否则会重复
     }
 
     /**
@@ -48,26 +55,42 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void handleUserInput() {
-        // Get user input from the text field
         String input = userInput.getText();
         if (!input.trim().isEmpty()) {
+            // Display user dialog
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage)
+            );
+
             // Pass the input to Niko for processing
             niko.processUserInput(input);
         }
-        userInput.clear();  // Clear the input field after processing
+        userInput.clear();
     }
 
     /**
-     * Sets and displays the user input and Niko's response in the dialog container.
+     * Displays the chatbot's response in the dialog container.
      *
-     * @param userText The user's input text.
-     * @param nikoText Niko's response text.
+     * @param nikoText The chatbot's response text.
      */
-    public void showDialog(String userText, String nikoText) {
-        // Add the user dialog and Niko's response to the dialog container
+    public void showDialog(String nikoText) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getDukeDialog(nikoText, dukeImage)
         );
+        // Scroll to the bottom after layout pass
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Displays error messages in a distinct format.
+     *
+     * @param errorText The error message to display.
+     */
+    public void showError(String errorText) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getErrorDialog(errorText)
+        );
+        // Scroll to the bottom after layout pass
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }

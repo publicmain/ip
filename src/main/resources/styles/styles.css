@@ -1,0 +1,78 @@
+/* styles.css */
+
+/* Global Styles */
+.root {
+    -fx-background-color: #f0f4f7;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dialog Box Styles */
+.dialog-box {
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* User Dialog Box Styles */
+.user-label {
+    -fx-background-color: #d1e7dd;
+    -fx-text-fill: #0f5132;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+}
+
+/* Chatbot Dialog Box Styles */
+.duke-label {
+    -fx-background-color: #cff4fc;
+    -fx-text-fill: #055160;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+}
+
+/* Error Dialog Box Styles */
+.error-label {
+    -fx-background-color: #f8d7da;
+    -fx-text-fill: #842029;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+}
+
+/* Text Field Styles */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #ced4da;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #0d6efd;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 10;
+}
+
+.button:hover {
+    -fx-background-color: #0b5ed7;
+}
+
+/* ScrollPane Styles */
+.scroll-pane {
+    -fx-background: transparent;
+}
+
+/* VBox Styles */
+.vbox {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
