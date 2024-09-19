@@ -1,5 +1,8 @@
 # Niko Chatbot
 
+
+![Niko](https://publicmain.github.io/ip/Ui.png?raw=true "Title")
+
 Welcome to the **Niko Chatbot** repository! Niko is a feature-rich and user-friendly chatbot designed to help you manage tasks, set reminders, and keep track of your schedule effortlessly. Whether you're a student, professional, or someone looking to organize daily activities, Niko is here to assist you.
 
 ## Table of Contents
