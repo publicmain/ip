@@ -24,7 +24,7 @@
                 AnchorPane.rightAnchor="10.0"
                 AnchorPane.bottomAnchor="10.0"
                 prefHeight="41.0"
-                prefWidth="60.0"
+                prefWidth="85.0"
                 text="Send"
                 onAction="#handleUserInput"
                 styleClass="button" />
